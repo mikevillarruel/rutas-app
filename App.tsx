@@ -2,6 +2,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { Navigator } from './src/navigator/Navigator';
+import { PermissionsProvider } from './src/context/PermissionsContext';
+
+const AppState = ({ children }: any) => {
+  return (
+    <PermissionsProvider>
+      {children}
+    </PermissionsProvider>
+  )
+}
+
 
 const App = () => {
   return (
@@ -11,7 +21,9 @@ const App = () => {
         backgroundColor='rgba(0,0,0,0.3)'
         barStyle='light-content'
       />
-      <Navigator />
+      <AppState>
+        <Navigator />
+      </AppState>
     </NavigationContainer>
   )
 }
