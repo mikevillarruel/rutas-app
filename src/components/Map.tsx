@@ -81,7 +81,7 @@ export const Map = ({ markers }: Props) => {
             <Fab
                 iconName='locate-outline'
                 onPress={()=>{
-                    centerPosition
+                    centerPosition();
                     following.current=true;
                 }}
                 style={{
