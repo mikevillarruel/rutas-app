@@ -16,18 +16,21 @@ export const Map = ({ markers }: Props) => {
         getCurrentLocation,
         followUserLocation,
         userLocation,
+        stopFollowUserLocation,
     } = useLocation();
 
     const mapViewRef = useRef<MapView>();
+    const following = useRef(true);
 
     useEffect(() => {
         followUserLocation();
         return () => {
-            // TODO: cancel follow
+            stopFollowUserLocation();
         }
     }, [])
 
     useEffect(() => {
+        if (!following.current) return;
         mapViewRef.current?.animateCamera({
             center: userLocation,
         })
@@ -61,6 +64,7 @@ export const Map = ({ markers }: Props) => {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
+                onTouchStart={() => following.current = false}
             >
                 {/* <Marker
                     // key={index}
@@ -76,7 +80,10 @@ export const Map = ({ markers }: Props) => {
             </MapView>
             <Fab
                 iconName='locate-outline'
-                onPress={centerPosition}
+                onPress={()=>{
+                    centerPosition
+                    following.current=true;
+                }}
                 style={{
                     position: 'absolute',
                     bottom: 20,
