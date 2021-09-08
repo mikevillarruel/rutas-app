@@ -2,6 +2,7 @@ import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { useLocation } from '../hooks/useLocation';
 import { LoadingScreen } from '../screens/LoadingScreen';
+import { Fab } from '../components/Fab';
 
 interface Props {
     markers?: Marker[];
@@ -38,7 +39,18 @@ export const Map = ({ markers }: Props) => {
                     title={'Title'}
                     description={'Description'}
                 /> */}
+
             </MapView>
+            <Fab
+                iconName='locate-outline'
+                onPress={() => console.log('Fab')}
+                style={{
+                    position: 'absolute',
+                    bottom: 20,
+                    right: 20,
+                }}
+            />
+
         </>
     )
 }
